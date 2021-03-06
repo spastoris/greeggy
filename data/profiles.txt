@@ -1,0 +1,30 @@
+#List of profiles for individuals.
+#=================================
+#The format is the following (respct the order):
+#NAME Name
+#AGE Age
+#HABITS Habit (if there are more habits repeat the format for each habit)
+#STATUS Status
+#PLACE Place
+#LOCATION Location
+#JOB Job
+#---------------------------------
+# List of available habits:
+# Cooking, Console_playing, ... FIXME
+# List of available status
+# Single, Married, ... FIXME
+# List of available jobs
+# Single, Married, ... FIXME
+# List of available places:
+# City, Rural, ... FIXME
+# List of available locations:
+# House, Flat, ... FIXME
+
+NAME Marco
+AGE 20
+HABITS Console_playing
+HABITS Cooking
+STATUS Single
+PLACE City
+LOCATION Flat
+JOB Student

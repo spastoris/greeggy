@@ -1,0 +1,13 @@
+#List of features for appliances.
+#=================================
+#The format is the following (respct the order):
+#CATEGORY Category
+#POWER Power (kW)
+#ENERGY_CLASS Energy_Class
+#AVERAGE_WORKING_TIME Average_Working_Time (h)
+#---------------------------------
+
+CATEGORY Fridge
+POWER 1000
+ENERGY_CLASS A+
+AVERAGE_WORKING_TIME 24
