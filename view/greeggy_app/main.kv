@@ -1,0 +1,185 @@
+<ListItemWithCheckbox>:
+
+    IconLeftWidget:
+        icon: root.icon
+
+    RightCheckbox:
+        id: check
+
+<MyTile@SmartTileWithStar>
+    size_hint_y: None
+    height: "240dp"
+
+NavigationLayout:
+
+    ScreenManager:
+
+        Screen:
+
+            BoxLayout:
+                orientation: 'vertical'
+
+                MDToolbar:
+                    title: "Greeggy"
+                    elevation: 10
+                    left_action_items: [['menu', lambda x: nav_drawer.set_state()]]
+
+                ScrollView:
+
+                    GridLayout:
+                        rows: 7
+                        adaptive_height: True
+                        #padding: dp(4), dp(4)
+                        #spacing: dp(4)
+
+                        MDLabel:
+                            text: app.show_text()
+                            #font_style: "Caption"
+                            size_hint_y: None
+                            height: self.texture_size[1]
+                                
+                        MDRaisedButton:
+                            text: "Scelta dei profili"
+                            size_hint_x: 1
+                            size_hint_y: None
+
+                        MDGridLayout:
+                            rows: 1
+                            cols: 2
+                            size_hint_y: 1.0
+                            adaptive_height: True
+                            padding: dp(4), dp(4)
+                            spacing: dp(4)
+
+                            MDRaisedButton:
+                                id: mdbu_pr1
+                                text: "Maschio"
+                                size_hint_x: 1.0
+                                on_press: app.gender_selection("m")
+                            MDRaisedButton:
+                                id: mdbu_pr2
+                                text: "Femmina"
+                                size_hint_x: 1.0
+                                on_press: app.gender_selection("f")
+
+                        MDGridLayout:
+                            rows: 2
+                            cols: 3
+                            size_hint_y: 1.0
+                            adaptive_height: True
+                            padding: dp(4), dp(4)
+                            spacing: dp(4)
+
+                            MDRaisedButton:
+                                id: mdbu_pr1
+                                text: "PROFILO 1"
+                                size_hint_x: 1.0
+                                on_press: app.profile_selection("1")
+                            MDRaisedButton:
+                                id: mdbu_pr2
+                                text: "PROFILO 2"
+                                size_hint_x: 1.0
+                                on_press: app.profile_selection("2")
+                            MDRaisedButton:
+                                id: mdbu_pr3
+                                text: "PROFILO 3"
+                                size_hint_x: 1.0
+                                on_press: app.profile_selection("3")
+                            MDRaisedButton:
+                                id: mdbu_pr4
+                                text: "PROFILO 4"
+                                size_hint_x: 1.0
+                                on_press: app.profile_selection("4")
+                            MDRaisedButton:
+                                id: mdbu_pr2
+                                text: "PROFILO 5"
+                                size_hint_x: 1.0
+                                on_press: app.profile_selection("5")
+                            MDRaisedButton:
+                                id: mdbu_pr2
+                                text: "PROFILO 6"
+                                size_hint_x: 1.0
+                                on_press: app.profile_selection("6")
+
+                        MDGridLayout:
+                            cols: 3
+                            #size_hint_y: 1.0
+                            adaptive_height: True
+                            padding: dp(4), dp(4)
+                            spacing: dp(4)
+
+                            MyTile:
+                                id: md_persona_img
+                                #source: "./images/appliances.jpg"
+                            MDLabel:
+                                id: md_idcard
+                                #text: "ID CARD"
+                                #font_style: "Caption"
+                                size_hint_y: None
+                                height: self.texture_size[1]
+                            MDLabel:
+                                id: md_act
+                                #text: "ACTIVITIES"
+                                #font_style: "Caption"
+                                size_hint_y: None
+                                height: self.texture_size[1]
+
+                        #ScrollView:
+                        MDList:
+                            id: scroll
+
+                        MDRaisedButton:
+                            id: md_simu
+                            text: "Simulazione"
+                            size_hint_x: 1
+                            size_hint_y: None
+                            on_press: app.simulation()
+
+    MDNavigationDrawer:
+        id: nav_drawer
+
+        BoxLayout:
+            orientation: "vertical"
+            padding: "8dp"
+            spacing: "8dp"
+
+            AnchorLayout:
+                anchor_x: "left"
+                size_hint_y: None
+                height: avatar.height
+
+                Image:
+                    id: avatar
+                    size_hint: None, None
+                    size: "56dp", "56dp"
+                    source: "./images/greeggy.png"
+
+            MDLabel:
+                text: "Greeggy App"
+                font_style: "Button"
+                size_hint_y: None
+                height: self.texture_size[1]
+
+            MDLabel:
+                text: "Stefano, Andrea, Ogi"
+                font_style: "Caption"
+                size_hint_y: None
+                height: self.texture_size[1]
+
+            ScrollView:
+
+                MDList:
+
+                    OneLineAvatarListItem:
+                        text: "Info App"
+                        on_press: app.show_app_info_dialog()
+
+                        IconLeftWidget:
+                            icon: "information-outline"
+
+                    OneLineAvatarListItem:
+                        text: "Contattaci"
+                        on_press: app.show_contact_info_dialog()
+
+                        IconLeftWidget:
+                            icon: "contact-mail-outline"
