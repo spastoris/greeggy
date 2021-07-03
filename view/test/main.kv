@@ -21,7 +21,6 @@ NavigationLayout:
 
                 MDToolbar:
                     title: "Greeggy"
-                    font_style: "H1"
                     elevation: 10
                     left_action_items: [['menu', lambda x: nav_drawer.set_state()]]
 
@@ -53,12 +52,10 @@ NavigationLayout:
                         MDRaisedButton:
                             id: mdbu_pr1
                             text: "Maschio"
-                            font_style: "H1"
                             size_hint_x: 1.0
                             on_press: app.gender_selection("m")
                         MDRaisedButton:
                             id: mdbu_pr2
-                            font_style: "H1"
                             text: "Femmina"
                             size_hint_x: 1.0
                             on_press: app.gender_selection("f")
@@ -115,13 +112,13 @@ NavigationLayout:
                         MDLabel:
                             id: md_idcard
                             #text: "ID CARD"
-                            font_style: "Body1"
+                            #font_style: "Caption"
                             size_hint_y: None
                             height: self.texture_size[1]
                         MDLabel:
                             id: md_act
                             #text: "ACTIVITIES"
-                            font_style: "Body2"
+                            #font_style: "Caption"
                             size_hint_y: None
                             height: self.texture_size[1]
 

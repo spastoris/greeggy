@@ -1,6 +1,6 @@
 #List of profiles for individuals.
 #=================================
-#The format is the following (respct the order):
+#The format is the following (respect the order):
 #NAME Name
 #AGE Age
 #HABITS Habit (if there are more habits repeat the format for each habit)
@@ -19,6 +19,7 @@
 # City, Rural, ... FIXME
 # List of available locations:
 # House, Flat, ... FIXME
+#=================================
 
 NAME Marco
 AGE 20

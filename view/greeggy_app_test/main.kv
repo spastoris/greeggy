@@ -1,0 +1,145 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+
+Screen:
+
+    BoxLayout:
+        orientation: "vertical"
+        spacing: "10dp"
+        color: app.theme_cls.text_color
+
+        ScrollView:
+            pos_hint: {"center_x": .5}
+            bar_width: 0
+
+            MDBoxLayout:
+                adaptive_height: True
+                orientation: "vertical"
+                md_bg_color: get_color_from_hex("#D6CBC8")
+                
+                MDBoxLayout:
+                    orientation: "vertical"
+                    spacing: "10dp"
+                    adaptive_size: True
+                    pos_hint: {"center_x": .5}
+                    md_bg_color: app.theme_cls.primary_color
+                    size_hint_x: 1
+                    size_hint_y: None
+
+                    MDSeparator:
+                    Label:
+                        text: "Il gioco"
+                        color: app.theme_cls.text_color
+                        font_size: sp(20)
+                        size_hint: None, None
+                        size: self.texture_size
+                        pos_hint: {"center_x": .5}
+                    MDSeparator:
+
+                MDBoxLayout:
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    adaptive_size: True
+                    spacing: "56dp"
+                    padding: "56dp"
+
+                    Label:
+                        text: "Bla Bla Bla"
+                        color: app.theme_cls.text_color
+                        font_size: sp(20)
+                        size_hint: None, None
+                        size: self.texture_size
+
+                MDBoxLayout:
+                    orientation: "vertical"
+                    spacing: "10dp"
+                    adaptive_size: True
+                    pos_hint: {"center_x": .5}
+                    md_bg_color: app.theme_cls.primary_color
+                    size_hint_x: 1
+                    size_hint_y: None
+
+                    MDSeparator:
+                    Label:
+                        text: "Scelta del profilo"
+                        color: app.theme_cls.text_color
+                        font_size: sp(20)
+                        size_hint: None, None
+                        size: self.texture_size
+                        pos_hint: {"center_x": .5}
+                    MDSeparator:
+
+                MDBoxLayout:
+                    adaptive_width: True
+                    size_hint_y: None
+                    height: "56dp"
+                    spacing: "10dp"
+                    pos_hint: {"center_x": .5}
+
+                    MDRoundFlatButton:
+                        text: "Maschio"
+                        pos_hint: {"center_x": .5}
+
+                    MDRoundFlatButton:
+                        text: "Femmina"
+                        pos_hint: {"center_x": .5}
+
+                MDBoxLayout:
+                    adaptive_width: True
+                    size_hint_y: None
+                    height: "56dp"
+                    spacing: "10dp"
+                    pos_hint: {"center_x": .5}
+
+                    MDFillRoundFlatButton:
+                        text: "Profilo 1"
+                        pos_hint: {"center_x": .5}
+
+                    MDFillRoundFlatButton:
+                        text: "Profilo 2"
+                        pos_hint: {"center_x": .5}
+
+                    MDFillRoundFlatButton:
+                        text: "Profilo 3"
+                        pos_hint: {"center_x": .5}
+
+                MDBoxLayout:
+                    adaptive_width: True
+                    size_hint_y: None
+                    height: "56dp"
+                    spacing: "10dp"
+                    pos_hint: {"center_x": .5}
+
+                    MDFillRoundFlatButton:
+                        text: "Profilo 4"
+                        pos_hint: {"center_x": .5}
+
+                    MDFillRoundFlatButton:
+                        text: "Profilo 5"
+                        pos_hint: {"center_x": .5}
+
+                    MDFillRoundFlatButton:
+                        text: "Profilo 6"
+                        pos_hint: {"center_x": .5}
+
+                MDBoxLayout:
+                    orientation: "vertical"
+                    pos_hint: {"center_x": .5}
+                    size_hint_y: None
+
+                MDBoxLayout:
+                    orientation: "vertical"
+                    spacing: "10dp"
+                    adaptive_size: True
+                    pos_hint: {"center_x": .5}
+                    md_bg_color: app.theme_cls.primary_color
+                    size_hint_x: 1
+                    size_hint_y: None
+
+                    MDSeparator:
+                    Label:
+                        text: "Simulazione"
+                        color: app.theme_cls.text_color
+                        font_size: sp(20)
+                        size_hint: None, None
+                        size: self.texture_size
+                        pos_hint: {"center_x": .5}
+                    MDSeparator:

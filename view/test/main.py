@@ -1,3 +1,4 @@
+import certifi
 from kivy.lang import Builder
 from kivy.properties import StringProperty
 
@@ -50,10 +51,41 @@ class Greeggy(MDApp):
 
     def build(self):
         self.gender = "f"
-        self.title = "Greeggy"
-        self.theme_cls.primary_palette = "Teal"
+        self.title = "WikipediaReader"
+        self.theme_cls.primary_palette = "Green"
         self.theme_cls.primary_hue = "400"
         return Builder.load_file("main.kv")
+
+    def normal_search_button(self):
+        query = self.root.ids["mdtext"].text
+        self.get_data(title=query)
+
+    def random_search_button(self):
+        endpoint = "https://it.wikipedia.org/w/api.php?action=query&list=random&rnlimit=1&rnnamespace=0&format=json"
+        self.root.ids["mdlab"].text = "Caricamento in corso..."
+        self.rs_request = UrlRequest(endpoint,
+                                     on_success=self.get_data,
+                                     ca_file=certifi.where())
+
+    def get_data(self, *args, title=None):
+        if title == None:
+            response = args[1]
+            random_article = response["query"]["random"][0]
+            title = random_article["title"]
+        endpoint = f"https://it.wikipedia.org/w/api.php?prop=extracts&explaintext&exintro&format=json&action=query&titles={title.replace(' ', '%20')}"
+        self.data_request = UrlRequest(endpoint,
+                                       on_success=self.set_textarea,
+                                       ca_file=certifi.where())
+
+    def set_textarea(self, request, response):
+        page_info = response["query"]["pages"]
+        page_id = next(iter(page_info))
+        page_title = page_info[page_id]["title"]
+        try:
+            content = page_info[page_id]["extract"]
+        except KeyError:
+            content = f"Ci spiace, ma la ricerca '{page_title}' non ha prodotto risultati!\n\nRiprova! "
+        self.root.ids["mdlab"].text = f"{page_title}\n\n{content}"
 
     def show_app_info_dialog(self):
         app_info = "Greeggy App\n\nMade to help in solving climate issues"
@@ -120,41 +152,38 @@ class Greeggy(MDApp):
 
     def on_start(self):
         #icons = list(md_icons.keys())
-        self.appliances=[
-            ("air_conditioner","condizionatore"),
-            ("dishwasher","lavastoviglie"),
-            ("hair_dryer","asciugacapelli"),
-            ("fridge","frigorifero"),
-            ("fan","stufetta"),
-            ("washing_machine","lavatrice"),
-            ("microwave","micronde"),
-            ("oven","forno"),
-            ("tv","tv"),
-            ("pc","pc"),
-            ("coffee_machine","macchinetta del caffé"),
-            ("console","console"),
-            ("stereo","stereo"),
-            ("cooker_hood","cappa aspirante"),
-            ("hair_straightener","stiracapelli"),
-            ("kneader","impastatrice"),
-            ("treadmill","tapis roulant"),
-            ("exercise_bike","cyclette"),
-            ("kitchen_robot","robot da cucina"),
-            ("lamp","lampada"),
-            ("printer","stampante"),
-            ("tablet","tablet"),
-            ("laptop","laptop"),
-            ("electric_heater","stufetta"),
-            ("headphones","cuffie"),
-            ("mixer","mixer"),
-            ("hoover","aspirapolvere")]
+        self.dict_appliances={}
+        self.dict_appliances["air_conditioner"] = "Condizionatore"
+        self.dict_appliances["dishwasher"] = "Lavastoviglie"
+        self.dict_appliances["hair_dryer"] = "Asciugacapelli"
+        self.dict_appliances["fridge"] = "Frigorifero"
+        self.dict_appliances["fan"] = "Stufetta"
+        self.dict_appliances["washing_machine"] = "Lavatrice"
+        self.dict_appliances["microwave"] = "Micronde"
+        self.dict_appliances["oven"] = "Forno"
+        self.dict_appliances["tv"] = "TV"
+        self.dict_appliances["pc"] = "PC"
+        self.dict_appliances["coffee_machine"] = "Macchinetta del caffé"
+        self.dict_appliances["Console"] = "console"
+        self.dict_appliances["Stereo"] = "stereo"
+        self.dict_appliances["cooker_hood"] = "Cappa aspirante"
+        self.dict_appliances["hair_straightener"] = "Stiracapelli"
+        self.dict_appliances["kneader"] = "Impastatrice"
+        self.dict_appliances["treadmill"] = "Tapis roulant"
+        self.dict_appliances["exercise_bike"] = "Cyclette"
+        self.dict_appliances["kitchen_robot"] = "Robot da cucina"
+        self.dict_appliances["lamp"] = "Lampada"
+        self.dict_appliances["printer"] = "Stampante"
+        self.dict_appliances["tablet"] = "Tablet"
+        self.dict_appliances["laptop"] = "Laptop"
+        self.dict_appliances["electric_heater"] = "Stufetta"
+        self.dict_appliances["headphones"] = "Cuffie"
+        self.dict_appliances["mixer"] = "Mixer"
+        self.dict_appliances["hoover"] = "Aspirapolvere"
 
-        self.list_en = [i[0] for i in self.appliances]
-        self.list_it = [i[1] for i in self.appliances]
-
-        for i in self.appliances:
+        for i in self.dict_appliances.keys():
             self.root.ids.scroll.add_widget(
-                ListItemWithCheckbox(text=i[1], icon="./images/{}.jpg".format(i[0]))
+                ListItemWithCheckbox(text=self.dict_appliances[i], icon="./images/{}.jpg".format(i))
             )
 
     def get_active_check(self):
@@ -162,12 +191,10 @@ class Greeggy(MDApp):
         app_activation["active"] = []
         app_activation["inactive"] = []
         for ListItemWithCheckbox in self.root.ids.scroll.children:
-            item_it = ListItemWithCheckbox.text
-            item_en = self.list_en[self.list_it.index(item_it)]
             if ListItemWithCheckbox.ids.check.active:
-                app_activation["inactive"].append(item_en)
+                app_activation["active"].append(ListItemWithCheckbox.text)
             else:
-                app_activation["active"].append(item_en)
+                app_activation["inactive"].append(ListItemWithCheckbox.text)
 
         return app_activation
 
@@ -181,9 +208,9 @@ class Greeggy(MDApp):
 
         name = persona_profile["Name"]
         if sentiment >= 50:
-            self.root.ids["md_simu"].text = "Complimenti, {} é contento/a di aver risparmiato senza troppo rinunciare alle proprie abitudini, {}".format(name,str(sentiment))
+            self.root.ids["md_simu"].text = "Complimenti, {} é contento/a di aver risparmiato senza troppo rinunciare alle proprie abitudini".format(name)
         else:
-            self.root.ids["md_simu"].text = "Ci spiace ma {} é depresso/a per le troppe rinuncie, {}".format(name,str(sentiment))
+            self.root.ids["md_simu"].text = "Ci spiace ma {} é depresso/a per le troppe rinuncie".format(name)
 
 Greeggy().run()
 
